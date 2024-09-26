@@ -1,2 +1,4 @@
 fastapi[standard] == 0.115.0
 structlog == 24.4.0
+ruff==0.6.7
+
