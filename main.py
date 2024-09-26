@@ -1,5 +1,7 @@
+import os
 from contextlib import asynccontextmanager
 
+import sentry_sdk
 import structlog.stdlib
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -9,6 +11,12 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi import FastAPI, Request
 
 from load_songs import load_songs
+
+sentry_sdk.init(
+    dsn=os.getenv("SENTRY_DSN"),
+    traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+)
 
 songs = {}
 
