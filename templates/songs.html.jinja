@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kościół Zmartwychwstałego | Tarnowskie Góry | Śpiewnik</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Kościół Zmartwychwstałego | Tarnowskie Góry | Pieśni zborowe | Zbiór pieśni uwielbienia i modlitwy">
+    <link rel="icon" type="image/jpeg" href="/static/icons/icon-48x48.png">
+</head>
+<body>
+<hgroup>
+    <h1>Pieśni zborowe</h1>
+    <h2>Kościół Zmartwychwstałego w Tarnowskich Górach</h2>
+</hgroup>
+<menu>
+    {% for song in songs %}
+        <li>
+            <a href="/songs/{{ song.id }}">{{ song.id }}. {{ song.title }}</a>
+        </li>
+    {% endfor %}
+</menu>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/static/service-worker.js').then((registration) => {
+                console.log('ServiceWorker registered: ', registration);
+            }).catch((registrationError) => {
+                console.log('ServiceWorker registration failed: ', registrationError);
+            });
+        });
+    }
+</script>
+</body>
+</html>
