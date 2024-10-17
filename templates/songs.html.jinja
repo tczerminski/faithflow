@@ -11,16 +11,30 @@
     <link rel="icon" type="image/jpeg" href="/static/icons/icon-48x48.png">
 </head>
 <body>
-<hgroup>
-    <h1>Pieśni zborowe</h1>
-    <h2>Kościół Zmartwychwstałego w Tarnowskich Górach</h2>
-</hgroup>
-<menu>
-    {% for song in songs %}
-        <li>
-            <a href="/songs/{{ song.id }}">{{ song.id }}. {{ song.title }}</a>
-        </li>
-    {% endfor %}
-</menu>
+    <hgroup>
+        <h1>Pieśni zborowe</h1>
+        <h2>Kościół Zmartwychwstałego w Tarnowskich Górach</h2>
+    </hgroup>
+    <menu>
+        {% for song in songs %}
+            <li>
+                <a href="/songs/{{ song.id }}">{{ song.id }}. {{ song.title }}</a>
+            </li>
+        {% endfor %}
+    </menu>
+    <nav aria-label="pagination">
+        <ul class="pagination">
+            {% if page > 1 %}
+                <li><a href="/?page={{ page - 1 }}">PREVIOUS</a></li>
+            {% endif %}
+            <li>PAGE {{ page }} OF {{ total_pages }}</li>
+            {% if page < total_pages %}
+                <li><a href="/?page={{ page + 1 }}">NEXT</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <button class="fab" onclick="alert('FAB clicked!')">
+        +
+    </button>
 </body>
 </html>

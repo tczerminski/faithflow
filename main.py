@@ -39,7 +39,7 @@ logger = structlog.stdlib.get_logger()
 
 
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
+async def index(request: Request, page: int = 1, per_page: int = 10):
     await logger.ainfo("getting songs", count=len(songs.items()))
     model = list(songs.values())
 
@@ -47,11 +47,15 @@ async def index(request: Request):
         return song["id"]
 
     model.sort(key=sorter)
+    total_pages = len(model) // per_page
+    model = model[(page - 1) * per_page: page * per_page]
     return templates.TemplateResponse(
         request=request,
         name="songs.html.jinja",
         context={
             "songs": model,
+            "page": page,
+            "total_pages": total_pages,
         },
     )
 
