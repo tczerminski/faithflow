@@ -1,40 +1,95 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
-    <title>Kościół Zmartwychwstałego | Tarnowskie Góry | Śpiewnik</title>
-    <link rel="stylesheet" href="/static/main.css">
-    <link rel="manifest" href="/static/manifest.json">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-          content="Kościół Zmartwychwstałego | Tarnowskie Góry | Pieśni zborowe | Zbiór pieśni uwielbienia i modlitwy">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="/static/icons/icon-48x48.png">
+    <title>Kościół Zmartwychwstałego | Tarnowskie Góry | Śpiewnik</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans:wght@400;700&display=swap"
+          rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/static/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0"></script>
 </head>
-<body>
-    <hgroup>
-        <h1>Pieśni zborowe</h1>
-        <h2>Kościół Zmartwychwstałego w Tarnowskich Górach</h2>
-    </hgroup>
-    <menu>
+
+<body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
+
+<main class="flex-1 flex flex-col items-center justify-start pb-20 px-0">
+    <img class="rounded-full mt-10"  src="/static/logo.jpg" alt="Logo Kościoła Zmartwywstałego w Tarnowskich Górach"/>
+    <h1 class="text-4xl mt-10 mb-10 text-gray-800 text-center">Pieśni zborowe</h1>
+
+    <ul id="song-list" class="w-full">
         {% for song in songs %}
-            <li>
-                <a href="/songs/{{ song.id }}">{{ song.id }}. {{ song.title }}</a>
+            <li id="{{ song.id }}" data-title="{{ song.title }}"
+                class="w-full {% if loop.index is even %}{% else %}bg-gradient-to-r from-white to-gray-100{% endif %}">
+                <a href="/songs/{{ song.id }}" class="block py-4 px-6 text-gray-800 w-full">
+                    {{ song.id }}. {{ song.title }}
+                </a>
             </li>
         {% endfor %}
-    </menu>
-    <nav aria-label="pagination">
-        <ul class="pagination">
-            {% if page > 1 %}
-                <li><a href="/?page={{ page - 1 }}">PREVIOUS</a></li>
-            {% endif %}
-            <li>PAGE {{ page }} OF {{ total_pages }}</li>
-            {% if page < total_pages %}
-                <li><a href="/?page={{ page + 1 }}">NEXT</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    <button class="fab" onclick="alert('FAB clicked!')">
-        +
-    </button>
+    </ul>
+
+    <div class="fixed bottom-[60px] w-full z-40 pointer-events-none">
+        <div class="h-12 bg-gradient-to-t from-white to-transparent w-full absolute bottom-0 z-[-1]"></div>
+        <div id="scroll-indicator" class="flex justify-center text-gray-400 animate-bounce pointer-events-auto">
+            <button id="scroll-arrow" class="p-2" aria-label="Przewiń w dół">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="w-full h-20 fixed bottom-[40px] pointer-events-none z-40"
+         style="background: linear-gradient(to bottom, rgba(243, 244, 246, 0) 0%, white 100%);">
+    </div>
+
+    <div class="w-full fixed bottom-0 bg-white flex justify-center z-50">
+        <input
+                class="w-80 max-w-lg py-2 px-2 mb-4 rounded-lg border border-gray-300 focus:outline-none"
+                type="search"
+                name="search"
+                placeholder="Wpisz numer lub tytuł szukanej pieśni">
+    </div>
+</main>
+
+<script src="/static/search.js"></script>
+<script>
+    const indicator = document.getElementById("scroll-indicator");
+    const scrollArrow = document.getElementById("scroll-arrow");
+
+    function updateScrollIndicator() {
+        const scrollable = document.documentElement;
+        const scrollTop = scrollable.scrollTop;
+        const scrollHeight = scrollable.scrollHeight;
+        const clientHeight = scrollable.clientHeight;
+
+        const scrolledToBottom = scrollTop + clientHeight >= scrollHeight - 20;
+
+        if (indicator) {
+            indicator.style.opacity = scrolledToBottom ? "0" : "1";
+        }
+    }
+
+    document.addEventListener("scroll", updateScrollIndicator);
+    window.addEventListener("resize", updateScrollIndicator);
+    window.addEventListener("load", updateScrollIndicator);
+
+    if (scrollArrow) {
+        scrollArrow.addEventListener("click", () => {
+            window.scrollBy({
+                top: window.innerHeight,
+                behavior: "smooth"
+            });
+        });
+    }
+</script>
+
 </body>
+
 </html>
