@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="/static/icons/icon-48x48.png">
+    <title>Kościół Zmartwychwstałego | Tarnowskie Góry | Śpiewnik</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans:wght@400;700&display=swap"
+          rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/static/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
+
+    <main class="flex-1 flex flex-col items-center justify-start pb-20 px-0">
+        <img class="rounded-full mt-10"  src="/static/logo.jpg" alt="Logo Kościoła Zmartwywstałego w Tarnowskich Górach"/>
+        <h1 class="text-4xl mt-10 mb-10 text-gray-800 text-center">Kościół Zmartwychwstałego w Tarnowskich Górach</h1>
+        <nav class="hidden md:flex space-x-12 text-xl font-bold tracking-wide font-sans">
+          <ul class="flex gap-8 justify-center text-lg font-semibold">
+              <li>
+              <a
+                href="/"
+                class="relative group pb-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+              >
+                Wydarzenia
+                <span
+                  class="absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 w-0 group-hover:w-full"
+                ></span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/sermons"
+                class="relative group pb-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+              >
+                Kazania
+                <span
+                  class="absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 w-0 group-hover:w-full"
+                ></span>
+              </a>
+            </li>
+             <li>
+              <a
+                href="/radio"
+                class="relative group pb-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+              >
+                Radio
+                <span
+                  class="absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 w-0 group-hover:w-full"
+                ></span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/songs"
+                class="relative group pb-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+              >
+                Pieśni
+                <span
+                  class="absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 w-0 group-hover:w-full"
+                ></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="flex w-full max-w-6xl mt-10 gap-4 h-[75vh]">
+           <aside class="w-1/4 bg-amber-700 text-white p-4 rounded h-full">
+           <h2>Kaznodzieja:</h2>
+            <input type="checkbox" id="vehicle1" name="preacher" value="Bike">
+            <label for="vehicle1">Czesław Ferdynand</label><br>
+            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+            <label for="vehicle2">Mateusz Zyzik</label><br>
+            <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+            <label for="vehicle3">Tomasz Czermiński</label><br>
+            <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+            <label for="vehicle3">Henryk Zyzik</label><br>
+            <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+            <label for="vehicle3">Krzysztof Rataj</label><br>
+           </aside>
+           <section class="w-3/4 bg-red-100 p-4 rounded h-full">
+             Zawartość sekcji
+           </section>
+        </div>
+
+    </main>
+    <hr class="w-4/5 m-auto" />
+    <footer class="text-center py-4 mt-auto text-sm">
+      <p>© 2025 Kościół Zmartwychwstałego w Tarnowskich Górach</p>
+      <p>Kontakt: <a href="mailto:kontakt@kosciol.pl" class="underline hover:text-white">kontakt@kosciol.pl</a></p>
+    </footer>
+</body>
+
+</html>

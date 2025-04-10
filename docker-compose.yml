@@ -1,6 +1,6 @@
 services:
   web:
     build: .
-    command: fastapi dev --host 0.0.0.0 main.py
+    command: fastapi dev --host 0.0.0.0 src.app.py
     ports:
       - "8000:8000"
