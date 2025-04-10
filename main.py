@@ -1,5 +1,6 @@
 import os
 from contextlib import asynccontextmanager
+from datetime import timedelta
 
 import sentry_sdk
 import structlog.stdlib
@@ -38,32 +39,32 @@ templates = Jinja2Templates(directory="templates")
 logger = structlog.stdlib.get_logger()
 
 
+CACHE_SECONDS = timedelta(days=1).total_seconds()
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     await logger.ainfo("getting songs", count=len(songs.items()))
     model = list(songs.values())
+    model.sort(key=lambda song: song["id"])
 
-    def sorter(song):
-        return song["id"]
-
-    model.sort(key=sorter)
-    return templates.TemplateResponse(
+    response = templates.TemplateResponse(
         request=request,
         name="songs.html.jinja",
-        context={
-            "songs": model,
-        },
+        context={"songs": model},
     )
+    response.headers["Cache-Control"] = f"public, max-age={CACHE_SECONDS}"
+    return response
 
 
 @app.get("/songs/{song_id}", response_class=HTMLResponse)
 async def get_song(request: Request, song_id: int):
     song = songs.get(song_id, {})
     await logger.ainfo("getting song", song_id=song_id)
-    return templates.TemplateResponse(
+
+    response = templates.TemplateResponse(
         request=request,
         name="song.html.jinja",
-        context={
-            "song": song,
-        },
+        context={"song": song},
     )
+    response.headers["Cache-Control"] = f"public, max-age={CACHE_SECONDS}"
+    return response
