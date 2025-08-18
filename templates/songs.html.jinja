@@ -19,10 +19,38 @@
 <body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
 
 <main class="flex-1 flex flex-col items-center justify-start pb-20 px-0">
-    <img class="rounded-full mt-10"  src="/static/logo.jpg" alt="Logo Kościoła Zmartwywstałego w Tarnowskich Górach"/>
+    <a href="/">
+        <img class="rounded-full mt-10" src="/static/logo.jpg"
+             alt="Logo Kościoła Zmartwywstałego w Tarnowskich Górach"/>
+    </a>
     <h1 class="text-4xl mt-10 mb-10 text-gray-800 text-center">Pieśni zborowe</h1>
-
-    <ul id="song-list" class="w-full">
+    <nav class="md:flex space-x-12 text-xl font-bold tracking-wide font-sans">
+        <ul class="flex gap-8 justify-center text-lg font-semibold">
+            <li>
+                <a
+                        href="/sermons"
+                        class="relative group pb-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+                >
+                    Kazania
+                    <span
+                            class="absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 w-0 group-hover:w-full"
+                    ></span>
+                </a>
+            </li>
+            <li>
+                <a
+                        href="/songs"
+                        class="relative group pb-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+                >
+                    Pieśni
+                    <span
+                            class="absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 w-0 group-hover:w-full"
+                    ></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul id="song-list" class="w-full mt-10">
         {% for song in songs %}
             <li id="{{ song.id }}" data-title="{{ song.title }}"
                 class="w-full {% if loop.index is even %}{% else %}bg-gradient-to-r from-white to-gray-100{% endif %}">

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="/static/icons/icon-48x48.png">
+    <title>Kościół Zmartwychwstałego | Tarnowskie Góry | Śpiewnik</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans:wght@400;700&display=swap"
+          rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/static/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
+
+<main class="flex-1 flex flex-col items-center justify-start pb-20 px-4 md:px-10">
+    <a href="/">
+        <img class="rounded-full mt-10 w-24 h-24 md:w-32 md:h-32" src="/static/logo.jpg"
+             alt="Logo Kościoła Zmartwywstałego w Tarnowskich Górach"/>
+    </a>
+    <div class="w-full flex justify-center pt-6">
+        <a href="/sermons"
+           class="flex items-center text-gray-900 text-base active:scale-95 py-3 hover:no-underline flex-shrink-0">
+            <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Powrót do listy kazań
+        </a>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl mt-8 mb-4 text-gray-800 text-center font-bold">{{ sermon.title }}</h1>
+
+    <div class="text-center text-gray-600 mb-6">
+        <p class="text-sm">Kaznodzieja: {{ sermon.preacher }}</p>
+        <p class="text-sm">{{ sermon.published_at }}</p>
+    </div>
+
+    {% set video_id = sermon.url.encoded_string().split('v=')[-1].split('&')[0] %}
+    <div class="w-full max-w-4xl aspect-video mb-8">
+        <iframe class="w-full h-full rounded-lg shadow-lg"
+                src="https://www.youtube.com/embed/{{ video_id }}"
+                title="{{ sermon.title }}"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+    </div>
+</main>
+
+</body>
+</html>
