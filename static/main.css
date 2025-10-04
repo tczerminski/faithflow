@@ -6,9 +6,6 @@
     font-variation-settings:
       "wdth" 100;
     color: #121212;
-}
-
-main {
     background-color: #FFFAFA;
 }
 
@@ -19,4 +16,8 @@ article {
 
 svg {
     color: white;
+}
+
+article p, article h3 {
+    background-color: white;
 }

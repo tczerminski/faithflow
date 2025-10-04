@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="/static/icons/icon-48x48.png">
+    <title>Kościół Zmartwychwstałego | Tarnowskie Góry | Śpiewnik</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans:wght@400;700&display=swap"
+          rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/static/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
+
+<main class="flex-1 flex flex-col items-center justify-start pb-20 px-0">
+    <a href="/">
+        <img class="rounded-full mt-10" src="/static/logo.jpg"
+             alt="Logo Kościoła Zmartwywstałego w Tarnowskich Górach"/>
+    </a>
+    <h1 class="text-4xl mt-10 mb-10 text-gray-800 text-center">Kazania</h1>
+
+    <nav class="md:flex space-x-12 text-xl font-bold tracking-wide font-sans">
+        <ul class="flex gap-8 justify-center text-lg font-semibold">
+            <li>
+                <a
+                        href="/sermons"
+                        class="relative group pb-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+                >
+                    Kazania
+                    <span
+                            class="absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 w-0 group-hover:w-full"
+                    ></span>
+                </a>
+            </li>
+            <li>
+                <a
+                        href="/songs"
+                        class="relative group pb-1 text-gray-800 hover:text-blue-600 transition-colors duration-300 cursor-pointer"
+                >
+                    Pieśni
+                    <span
+                            class="absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 w-0 group-hover:w-full"
+                    ></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="flex justify-center mt-10">
+        <section class="sm:w-full md:w-4/5 p-4 rounded h-full
+                grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for sermon in sermons %}
+                <a href="/sermons/{{ sermon.id }}" class="block hover:bg-gray-200">
+                    <article class="sermon bg-white rounded-lg shadow p-3 flex flex-col
+               hover:shadow-xl hover:-translate-y-1 hover:scale-105
+               transition duration-300 transform h-full">
+                        <img src="data:image/jpeg;base64,{{ sermon.thumbnail|b64encode }}"
+                             alt="Thumbnail for {{ sermon.title }}"
+                             class="object-cover rounded w-full h-48 mb-2">
+                        <div class="flex flex-col justify-between flex-1 bg-white">
+                            <h3 class="font-bold text-lg mb-1">{{ sermon.title }}</h3>
+                            <div class="mt-auto">
+                                <p class="text-sm py-1">Kaznodzieja: {{ sermon.preacher }}</p>
+                                <p class="text-sm">{{ sermon.published_at }}</p>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+            {% endfor %}
+        </section>
+    </div>
+</main>
+</body>
+
+</html>
